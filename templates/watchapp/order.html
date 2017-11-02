@@ -1,0 +1,137 @@
+{% extends "watchapp/base2.html" %}
+
+{% block scripts %}
+<link rel="stylesheet" type="text/css" href="/static/watchapp/css/global.css">
+<link rel="stylesheet" type="text/css" href="/static/watchapp/css/app.css">
+
+<link rel="stylesheet" type="text/css" href="/static/watchapp/css/order.css">
+<link rel="stylesheet" type="text/css" href="/static/watchapp/css/order-app.css">
+
+<script type="text/javascript" src="/static/watchapp/js/rem.js"></script>
+<script type="text/javascript" src="/static/watchapp/js/topNav.js"></script>
+{% endblock %}	
+
+ 
+
+<!-- 不同之处 -->
+{% block diff %}
+<!-- 主内容区域 -->
+<div class="mainbody order">
+	<div class="container">
+		<div class="main clearfix">
+			<!-- 左侧导航 -->
+			<div class="left-nav f-fl col-md-4 hidden-xs hidden-sm">
+				<div class="nav-main">
+					<a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>订单中心</a>
+					<a href="#" class="ml active" >我的订单</a>
+					<a href="#" class="ml " >我的回购单</a>
+					<a href="#" class="ml " >我的意外保</a>
+					<a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>个人中心</a>
+					<a href="/#" class="ml " >地址管理</a>
+					<a href="#" class="ml " >我的收藏</a>
+					<a href="#" class="ml " >消息提醒</a>
+					<a href="{% url 'checkout' %}" class="ml " >返回购物车</a>
+				</div>
+			</div><!-- 左侧导航 E-->
+			<!-- 右侧内容展示 -->
+			<div class="right-content f-fr col-md-8 col-xs-12 col-sm-12">
+				<div class="order-main">
+					
+					<div id="tableList" class="type-contain ui-load-container">
+						<div class="ui-load-content"><input id="unPayNum" value="0" type="hidden">
+						<br>
+							<p style="font-size:30px;color:black;font-weight:bold;font-weight:border;text-align:center">请填写以下订单信息</p>
+							<form action="{% url 'orderconfirm' %}" method="post">
+								{% csrf_token %}
+								<div class="register-main">
+									<div class="col-md-6 account-left">
+										<input placeholder="姓名" type="text" tabindex="2" required name="name">						
+										<input placeholder="移动电话" type="text" tabindex="3" required name="phone">
+									</div>
+
+									<div class="col-md-6 account-left">
+										<input placeholder="邮编" type="text" tabindex="4" required name="code">
+										<input placeholder="住址" type="text" tabindex="4" required name="address">
+									</div>
+									<div class="clearfix"></div>
+								</div>
+								<div class="address submit">
+									<input type="submit" value="提交该订单">
+								</div>
+							</form>
+							<br><br>
+							<table class="orderItem">
+								<tbody>
+									<tr class="trHead hidden-xs hidden-sm">
+										<td colspan="4" class="title clearfix">
+										  <div class="f-fl">下单时间：{{request.session.time}}<span class="time"></span>订单号：<span class="orderNumber"></span>
+										  </div>
+										</td>
+									</tr>
+									<tr class="list-box b-l b-r b-b">
+										<td class="list b-r j-iamCart">
+											<div class="cart-wrap j-CartWrap">
+												<div class="shop j-shop j-amLight">
+													{% for good in request.session.orderlist.values %}
+													<div class="item b-t clearfix j-item j-iamMain">
+														<a class="productDetail nameWidth col-xs-4 col-sm-4" href="{% url 'single' good.id %}" target="_blank">
+															<img style="width:82px" src="/static/goodsimg/s_{{good.picname}}" class="f-fl">
+														</a>
+														<div class="describe f-fl col-xs-8 col-sm-8">
+															<div class="vertic clearfix" >
+																<span class="clearfix" style="margin-top:15px">
+																	<a class="productDetail nameWidth" href="{% url 'single' good.id %}" target="_blank">
+																	<i>{{good.goods}}</i><i class="pro-d"></i></a>
+																	<span>
+																	数量：{{good.total}}件
+																	</span>
+																	<p>
+																	单价：${{good.price}}
+																	</p>
+																	<p>
+																	小计：${{good.totalprice}}
+																	<a href="{% url 'delorder' good.id %}" style="float:right">删除</a>
+																	</p>
+																</span>
+															</div>
+														</div>
+														<input class="orderSn" value="51090244361541573081" type="hidden">
+														<input class="isCart" value="1" type="hidden">
+														<input class="orderSnSon" value="21090244361541575081" type="hidden">
+													</div>
+													{% endfor %}
+												</div>
+											</div>
+										</td>
+										<td class="b-r price w125 center b-t hidden-xs hidden-sm">
+											<div class="priceDiv">
+												总计：${{request.session.orderprice}}		
+											</div>
+										</td>
+										<td class="b-r w125 center state b-t hidden-xs hidden-sm">
+											<div class="stateDiv">
+												   <div>待付款<br></div>
+											</div>
+										</td>
+										<td class="w125 center opreat b-t hidden-xs hidden-sm">
+											<ul>
+												<li class="more"><a href="{% url 'clearorder' %}" target="_blank">清空</a></li>
+											</ul>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
+<!-- 主内容区域 E-->
+{% endblock %}
+   
+	
+    

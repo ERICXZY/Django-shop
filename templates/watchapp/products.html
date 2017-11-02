@@ -1,0 +1,132 @@
+{% extends "watchapp/base2.html" %}
+<!-- 不同之处 -->
+{% block diff %}
+<!--prdt-starts-->
+<div class="prdt"> 
+	<div class="container">
+		<div class="prdt-top">
+			<div class="col-md-9 prdt-left">
+				<div class="product-one" >
+					{% for good in p %}
+					<div class="col-md-4 product-left p-left" style="margin-bottom:40px">
+						<div class="product-main simpleCart_shelfItem">
+							<a href="{% url 'single' good.id %}" class="mask"><img class="img-responsive zoom-img" src="/static/goodsimg/m_{{good.picname}}" alt="" /></a>
+							<div class="product-bottom">
+								<h3>{{good.goods}}</h3>
+								<p>{{good.company}}</p>
+								<h4><a class="item_add" href="{% url 'docheckout' good.id %}"><i></i></a> <span class=" item_price">价格：{{good.price}}</span></h4>
+							</div>
+							<div class="srch srch1">
+								<span>在售</span>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+					<div class="clearfix"></div>
+				</div>
+			</div>	
+
+			<div class="col-md-3 prdt-right">
+				<div class="w_sidebar">
+					<section  class="sky-form">
+						<h4>Catogories</h4>
+						<div class="row1 scroll-pane">
+							<div class="col col-4">
+								<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>所有配件</label>
+							</div>
+							<div class="col col-4">	
+															
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>表带</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>手环</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>表轴</label>		
+
+									
+							</div>
+						</div>
+					</section>
+					<section  class="sky-form">
+						<h4>品牌</h4>
+						<div class="row1 row2 scroll-pane">
+							<div class="col col-4">
+								<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>全部品牌</label>
+							</div>
+							<div class="col col-4">
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>天梭</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>卡西欧</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>西铁城</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>宾格</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox" ><i></i>飞亚达</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>日本精工</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>罗西尼</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>天王</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>商家推荐	</label>									
+							</div>
+						</div>
+					</section>
+					<section class="sky-form">
+						<h4>颜色选择</h4>
+							<ul class="w_nav2">
+								<li><a class="color1" href="#"></a></li>
+								<li><a class="color2" href="#"></a></li>
+								<li><a class="color3" href="#"></a></li>
+								<li><a class="color4" href="#"></a></li>
+								<li><a class="color5" href="#"></a></li>
+								<li><a class="color6" href="#"></a></li>
+								<li><a class="color7" href="#"></a></li>
+								<li><a class="color8" href="#"></a></li>
+								<li><a class="color9" href="#"></a></li>
+								<li><a class="color10" href="#"></a></li>
+								<li><a class="color12" href="#"></a></li>
+								<li><a class="color13" href="#"></a></li>
+								<li><a class="color14" href="#"></a></li>
+								<li><a class="color15" href="#"></a></li>
+								<li><a class="color5" href="#"></a></li>
+								<li><a class="color6" href="#"></a></li>
+								<li><a class="color7" href="#"></a></li>
+								<li><a class="color8" href="#"></a></li>
+								<li><a class="color9" href="#"></a></li>
+								<li><a class="color10" href="#"></a></li>
+							</ul>
+					</section>
+					<section class="sky-form">
+						<h4>优惠</h4>
+							<div class="row1 row2 scroll-pane">
+								<div class="col col-4">
+									<label class="radio"><input type="radio" name="radio" checked=""><i></i>60 % 以上</label>
+									<label class="radio"><input type="radio" name="radio"><i></i>50 % 以上</label>
+									<label class="radio"><input type="radio" name="radio"><i></i>40 % 以上</label>
+								</div>
+								<div class="col col-4">
+									<label class="radio"><input type="radio" name="radio"><i></i>30 % 以上</label>
+									<label class="radio"><input type="radio" name="radio"><i></i>20 % 以上</label>
+									<label class="radio"><input type="radio" name="radio"><i></i>10 % 以上</label>
+								</div>
+							</div>						
+					</section>
+				</div>
+			</div>
+
+			<div style="margin-left:400px;margin-top:0">
+				<ul style="text-align:center">
+					{% for n in lip %}
+					<li style="float:left;margin-left:15px">
+					{% if pid == 0 %}
+					<a href="{% url 'products' n %}" style="font-size:20px">
+					{{n}}</a>
+					{% else %}
+					<a href="{% url 'products' n pid %}" style="font-size:20px">
+					{{n}}</a>
+					{% endif %}
+					</li>
+					{% endfor %}
+				</ul>	
+			</div>	
+			<div class="clearfix"></div>
+			<!-- 显示页码 -->
+
+			
+		</div>
+	</div>
+</div>
+<!--product-end-->
+{% endblock %}

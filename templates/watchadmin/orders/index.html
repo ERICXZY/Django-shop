@@ -1,0 +1,93 @@
+{% extends "watchadmin/base.html" %}
+{% block title %}用户浏览{% endblock %}
+{% block a8 %}class="active"{% endblock %}
+{% block content %}
+<div class="span9">
+	<h2>
+		所有用户
+	</h2>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>
+					id号
+				</th>
+				<th>
+					会员id号
+				</th>
+				<th>
+					联系人
+				</th>
+				<th>
+					地址
+				</th>
+				<th>
+					邮编
+				</th>
+				<th>
+					电话
+				</th>
+				<th>
+					购买时间
+				</th>
+				<th>
+					总金额
+				</th>
+				<th>
+					状态
+				</th>
+				<th>
+					操作
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for order in p %}
+			<tr>
+				<td>
+					{{order.id}}
+				</td>
+				<td>
+					{{order.uid}}
+				</td>
+				<td>
+					{{order.linkman}}
+				</td>
+				<td>
+					{{order.address}}
+				</td>
+				<td>
+					{{order.code}}
+				</td>
+				<td>
+					{{order.phone}}
+				</td>
+				<td>
+					{{order.addtime}}
+				</td>
+				<td>
+					{{order.total}}
+				</td>
+				<td>
+					{{order.state}}
+				</td>
+				<td>
+					<a href="{% url 'admin_delcontents' order.id %}" class="view-link">查看详情</a>
+				</td>
+			</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+	<!-- 显示页码 -->
+	<div class="pagination">
+		<ul>
+			{% for n in lip %}
+			<li>
+			<a href="{% url 'poindex' n  %}">{{n}}</a>
+			</li>
+			{% endfor %}
+		</ul>	
+	</div>			
+</div>
+{% endblock %}

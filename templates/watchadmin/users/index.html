@@ -1,0 +1,94 @@
+{% extends "watchadmin/base.html" %}
+{% block title %}用户浏览{% endblock %}
+{% block a2 %}class="active"{% endblock %}
+{% block content %}
+<div class="span9">
+	<h2>
+		所有用户
+	</h2>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>
+					id号
+				</th>
+				<th>
+					账号
+				</th>
+				<th>
+					性别
+				</th>
+				<th>
+					地址
+				</th>
+				<th>
+					邮编
+				</th>
+				<th>
+					电话
+				</th>
+				<th>
+					email
+				</th>
+				<th>
+					状态
+				</th>
+				<th>
+					注册时间
+				</th>
+				<th>
+					操作
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in p %}
+			<tr>
+				<td>
+					{{user.id}}
+				</td>
+				<td>
+					{{user.username}}
+				</td>
+				<td>
+					{{user.sex}}
+				</td>
+				<td>
+					{{user.address}}
+				</td>
+				<td>
+					{{user.code}}
+				</td>
+				<td>
+					{{user.phone}}
+				</td>
+				<td>
+					{{user.email}}
+				</td>
+				<td>
+					{{user.state}}
+				</td>
+				<td>
+					{{user.addtime}}
+				</td>
+				<td>
+					<a href="{% url 'admin_usersedit' user.id %}" class="view-link">编辑</a> |
+					<a href="{% url 'admin_usersdel' user.id %}" class="view-link">删除</a>
+				</td>
+			</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+	<!-- 显示页码 -->
+	<div class="pagination">
+		<ul>
+			{% for n in lip %}
+			<li>
+			<a href="{% url 'pagTest' n %}">{{n}}</a>
+			</li>
+			{% endfor %}
+		</ul>	
+	</div>			
+</div>
+{% endblock %}

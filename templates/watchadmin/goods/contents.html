@@ -1,0 +1,75 @@
+{% extends "watchadmin/base.html" %}
+{% block title %}用户浏览{% endblock %}
+{% block a6 %}class="active"{% endblock %}
+{% block content %}
+<div class="span9">
+	<h2>
+		商品信息
+	</h2>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>
+					id号
+				</th>
+				<th>
+					用户id
+				</th>
+				<th>
+					商品id
+				</th>
+				<th>
+					用户名
+				</th>
+				<th>
+					评论内容
+				</th>
+				<th>
+					添加时间
+				</th>
+				<th>
+					操作
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for content in p %}
+			<tr >
+				<td style="line-height:60px">
+					{{content.id}}
+				</td >
+				<td style="line-height:60px">
+					{{content.uid}}
+				</td>
+				<td style="line-height:60px">
+					{{content.goodsid}}
+				</td>
+				<td style="line-height:60px">
+					{{content.username}}
+				</td>
+				<td style="line-height:60px">
+					{{content.content}}
+				</td>
+				<td style="line-height:60px">
+					{{content.addtime}}
+				</td>
+				<td style="line-height:60px">
+					<a href="{% url 'admin_delcontents' content.id %}" class="view-link">删除</a> 
+				</td>
+			</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+	<!-- 显示页码 -->
+	<div class="pagination">
+		<ul>
+			{% for n in lip %}
+			<li>
+			<a href="{% url 'admin_contents' n gid %}">{{n}}</a>
+			</li>
+			{% endfor %}
+		</ul>	
+	</div>			
+</div>
+{% endblock %}

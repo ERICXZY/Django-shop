@@ -1,0 +1,88 @@
+{% extends "watchadmin/base.html" %}
+{% block title %}用户添加{% endblock %}
+{% block a7 %}class="active"{% endblock %}
+{% block content %}
+<div class="span9">
+	<h3>
+		添加商品
+	</h3>
+	<p style="color:red;font-size:20px;">{{info}}</p>
+	<form id="edit-profile" class="form-horizontal" action="{% url 'admin_goodsinsert' %}" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<fieldset>
+			<legend>商品信息</legend>
+
+			<div class="control-group">
+				<label class="control-label" for="input01">类别名称</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				<select name="typeid">
+					{% for vo in goodslist %}
+
+						<option value="{{ vo.id }}">{{ vo.name }}</option>
+						
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="input01">商品名称</label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="input01" name="goods" />
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="input01">厂家</label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="input01" name="company" />
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="input01">价格</label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="input01" name="price" />
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="input01">上传商品图片</label>
+				<div class="controls">
+					<input type="file" class="input-xlarge" id="input01" name="picname" />
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="input01" >状态</label>
+				<div class="controls">
+					<input type="radio" class="input-xlarge" id="input01" name="state" value="1" />&nbsp;新上架&nbsp;&nbsp;&nbsp;
+					<input type="radio" class="input-xlarge" id="input01" name="state" value="2"/>&nbsp;在售&nbsp;&nbsp;&nbsp;
+					<input type="radio" class="input-xlarge" id="input01" name="state" value="3"/>&nbsp;下架
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="input01">库存</label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="input01" name="store" />
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="input01">商品描述</label>
+				<div class="controls">
+					<textarea class="form-control" style="width: 483px; height: 154px;" name="descr" ></textarea>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="controls">
+					<input type="submit" value="提交"/>&nbsp;&nbsp;
+					<input type="reset" value="重置"/>
+				</div>
+			</div>					
+			
+		</fieldset>
+	</form>
+	
+</div>
+{% endblock %}

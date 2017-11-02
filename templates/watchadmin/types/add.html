@@ -1,0 +1,49 @@
+{% extends "watchadmin/base.html" %}
+{% block title %}用户添加{% endblock %}
+{% block a5 %}class="active"{% endblock %}
+{% block content %}
+<div class="span9">
+	<h3>
+		添加商品类别
+	</h3>
+	<p style="color:red">{{info}}</p>
+	<form id="edit-profile" class="form-horizontal" action="{% url 'admin_typesinsert' %}" method="post">
+		{% csrf_token %}
+		<fieldset>
+			<legend>商品级联关系</legend>
+			<div class="control-group">
+				<label class="control-label" for="input01">父类别</label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="input01" name="pname"  value="{{pname}}" disabled="true"/>&nbsp;&nbsp;
+					<input type="hidden" class="input-xlarge" id="input01" name="tid" value="{{tid}}"/>
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="input01">子类名称</label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="input01" name="name" placeholder="请输根类别的子类名称" />
+					<input type="hidden" class="input-xlarge" id="input01" name="id" value="{{type.id}}"/>
+					<input type="hidden" class="input-xlarge" id="input01" name="pid" value="{{type.pid}}"/>
+					<input type="hidden" class="input-xlarge" id="input01" name="path" value="{{type.path}}"/>
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<div class="controls">
+					<input type="submit" value="提交"/>&nbsp;&nbsp;
+					<input type="reset" value="重置"/>
+				</div>
+			</div>
+			<!--div class="control-group">
+				<label class="control-label" for="fileInput">Photo</label>
+				<div class="controls">
+					<input class="input-file" id="fileInput" type="file" />
+				</div>
+			</div-->						
+			
+		</fieldset>
+	</form>
+	
+</div>
+{% endblock %}

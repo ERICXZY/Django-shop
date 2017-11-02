@@ -1,0 +1,277 @@
+{% extends "watchapp/base2.html" %}
+{% block scripts %}
+<script type="text/javascript">
+	$(function() {
+	
+	    var menu_ul = $('.menu_drop > li > ul'),
+	           menu_a  = $('.menu_drop > li > a');
+	    
+	    menu_ul.hide();
+	
+	    menu_a.click(function(e) {
+	        e.preventDefault();
+	        if(!$(this).hasClass('active')) {
+	            menu_a.removeClass('active');
+	            menu_ul.filter(':visible').slideUp('normal');
+	            $(this).addClass('active').next().stop(true,true).slideDown('normal');
+	        } else {
+	            $(this).removeClass('active');
+	            $(this).next().stop(true,true).slideUp('normal');
+	        }
+	    });
+	
+	});
+</script>	
+{% endblock %}	
+
+<!-- 不同之处 -->
+{% block diff %}
+<!--start-single-->
+<div class="single contact">
+	<div class="container">
+		<div class="single-main">
+			<div class="col-md-9 single-main-left">
+			<div class="sngl-top">
+				<div class="col-md-5 single-top-left">	
+					<div class="flexslider">
+						  <ul class="slides">
+							{% for magn in magns %}
+							<li data-thumb="/static/magnimg/{{magn.picname}}">
+								<div class="thumb-image"> <img src="/static/magnimg/{{magn.picname}}" data-imagezoom="true" class="img-responsive" alt=""/> </div>
+							</li>
+							{% endfor %}
+						  </ul>
+					</div>
+					<!-- FlexSlider -->
+					<script src="/static/watchapp/js/imagezoom.js"></script>
+					<script defer src="/static/watchapp/js/jquery.flexslider.js"></script>
+					<link rel="stylesheet" href="/static/watchapp/css/flexslider.css" type="text/css" media="screen" />
+
+					<script>
+					// Can also be used with $(document).ready()
+					$(window).load(function() {
+					  $('.flexslider').flexslider({
+						animation: "slide",
+						controlNav: "thumbnails"
+					  });
+					});
+					</script>
+				</div>	
+				<div class="col-md-7 single-top-right">
+					<div class="single-para simpleCart_shelfItem">
+					<h2>{{good.goods}}</h2>
+						<div class="star-on">
+							<ul class="star-footer">
+									<li><a href="#"><i> </i></a></li>
+									<li><a href="#"><i> </i></a></li>
+									<li><a href="#"><i> </i></a></li>
+									<li><a href="#"><i> </i></a></li>
+									<li><a href="#"><i> </i></a></li>
+								</ul>
+							
+						<div class="clearfix"> </div>
+						</div>
+						
+						<h5 class="item_price">价格： {{good.price}}</h5>
+						<p>全是傲娇的品牌，只卖呆萌的价格，速来抢购</p>
+						<div class="available">
+							<ul>
+								<li>颜色
+									<select>
+									<option>白色</option>
+									<option>黑色</option>
+									<option>深黑色</option>
+									<option>红色</option>
+								</select></li>
+							<div class="clearfix"> </div>
+						</ul>
+					</div>
+						<ul class="tag-men">
+							<li><span>标签:</span>
+							<span class="women1">{{good.descr}}</span></li>
+							<li><span>厂家:</span>
+							<span class="women1">{{good.company}} </span></li>
+							<li><span>库存:</span>
+							<span class="women1">{{good.store}} </span></li>
+							<li><span>销量:</span>
+							<span class="women1">{{good.num}} </span></li>
+							<li><span>时间:</span>
+							<span class="women1">{{good.addtime}} </span></li>
+							
+						</ul>
+							<br>
+							<form action="{% url 'docheckout' good.id %}" method="post">
+							{% csrf_token %}
+							数量：<input type="text" name="n" value="1" style="width:60px;">
+							<br><br>
+							<input type="submit" style="color:white;background-color:black;height:40px" value="添加到购物车">
+							</form>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="tabs">
+				<ul class="menu_drop">
+			<!-- <li class="item1"><a href="#"><img src="/static/watchapp/images/arrow.png" alt="">商品详情</a>
+				<ul>
+					<li class="subitem1"><a href="#">库存：{{good.store}}</a></li>
+					<li class="subitem2"><a href="#">点击量：{{good.clicknum}}</a></li>
+					<li class="subitem3"><a href="#">上市时间：{{good.addtime}}</a></li>
+				</ul>
+			</li> -->
+			<li class="item3"><a href="#"><img src="/static/watchapp/images/arrow.png" alt="">评论：{{contents|length}}</a>
+				<ul>
+					{% for content in contents %}
+					<li class="subitem1"><a style="height:30px">@{{content.username}}：{{content.content}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{{content.addtime}}</a>
+					
+					{% if content.username == request.session.user.username %}
+					<a href="{% url 'delcontents' content.id %}" style="height:30px">删除</a>
+					{% endif %}
+					</li> 
+					{% endfor %}
+					<!-- <li class="subitem2"><a href="#"> 老板太傲娇，老板娘太呆萌</a></li>
+					<li class="subitem3"><a href="#">老板太傲娇，老板娘太呆萌 </a></li> -->
+				</ul>
+			</li>
+			<li class="item2"><a href="#"><img src="/static/watchapp/images/arrow.png" alt="">店家的问候</a>
+				<ul>
+				    <li class="subitem1"><a href="#">你买我卖，天经地义，看上就买，看不上就算，呵呵</a></li>
+					<li class="subitem2"><a href="#"> 你买我卖，天经地义，看上就买，看不上就算，呵呵</a></li>
+					<li class="subitem3"><a href="#">你买我卖，天经地义，看上就买，看不上就算，呵呵 </a></li>
+				</ul>
+			</li>
+			
+			<li class="item4"><a href="#"><img src="/static/watchapp/images/arrow.png" alt="">友情链接</a>
+				<ul>
+				    <li class="subitem2"><a href="#"> 罗西尼</a></li>
+					<li class="subitem3"><a href="#">天梭 </a></li>
+				</ul>
+			</li>
+			<li class="item5"><a href="#"><img src="/static/watchapp/images/arrow.png" alt="">小礼品</a>
+				<ul>
+					<li class="subitem1"><a href="#">老板太傲娇，就不给你</a></li>
+					<li class="subitem2"><a href="#"> 老板太傲娇，就不给你</a></li>
+					<li class="subitem3"><a href="#">老板太傲娇，就不给你 </a></li>
+				</ul>
+			</li>
+ 		</ul>
+			</div>
+			<!-- 商品推介 -->
+			<div class="latestproducts">
+				<div class="product-one">
+					{% for good in goodslist %}
+					<div class="col-md-4 product-left p-left"> 
+						<div class="product-main simpleCart_shelfItem">
+							<a href="{% url 'single' good.id %}" class="mask"><img class="img-responsive zoom-img" src="/static/goodsimg/m_{{good.picname}}" alt="" /></a>
+							<div class="product-bottom">
+								<h3>{{good.goods}}</h3>
+								<p>{{good.company}}</p>
+								<h4><a class="item_add" href="{% url 'docheckout' good.id %}"><i></i></a> <span class=" item_price">价格：{{good.price}}</span></h4>
+							</div>
+							<div class="srch srch1">
+								<span>在售</span>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+					<div class="clearfix"></div>
+				</div>
+			</div>
+
+		</div>
+			<div class="col-md-3 single-right">
+				<div class="w_sidebar">
+					<section  class="sky-form">
+						<h4>Brand</h4>
+						<div class="row1 row2 scroll-pane">
+							<div class="col col-4">
+								<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>所有配件</label>
+							</div>
+							<div class="col col-4">	
+								{% for type2 in list2 %}							
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>女式手表</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>儿童手表</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>男士腕表</label>	
+									
+								{% endfor %}
+							</div>
+						</div>
+					</section>
+					<section  class="sky-form">
+						<h4>品牌</h4>
+						<div class="row1 row2 scroll-pane">
+							<div class="col col-4">
+								<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>kurtas</label>
+							</div>
+							<div class="col col-4">
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>奏鸣曲</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>泰坦</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>奏鸣曲</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>苏宁</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox" ><i></i>奏鸣曲</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>奏鸣曲</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>奏鸣曲</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>奏鸣曲</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>奏鸣曲</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>奏鸣曲</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>奏鸣曲</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>奏鸣曲</label>									
+							</div>
+						</div>
+					</section>
+					<section class="sky-form">
+						<h4>颜色选择</h4>
+							<ul class="w_nav2">
+								<li><a class="color1" href="#"></a></li>
+								<li><a class="color2" href="#"></a></li>
+								<li><a class="color3" href="#"></a></li>
+								<li><a class="color4" href="#"></a></li>
+								<li><a class="color5" href="#"></a></li>
+								<li><a class="color6" href="#"></a></li>
+								<li><a class="color7" href="#"></a></li>
+								<li><a class="color8" href="#"></a></li>
+								<li><a class="color9" href="#"></a></li>
+								<li><a class="color10" href="#"></a></li>
+								<li><a class="color12" href="#"></a></li>
+								<li><a class="color13" href="#"></a></li>
+								<li><a class="color14" href="#"></a></li>
+								<li><a class="color15" href="#"></a></li>
+								<li><a class="color5" href="#"></a></li>
+								<li><a class="color6" href="#"></a></li>
+								<li><a class="color7" href="#"></a></li>
+								<li><a class="color8" href="#"></a></li>
+								<li><a class="color9" href="#"></a></li>
+								<li><a class="color10" href="#"></a></li>
+							</ul>
+					</section>
+					<section class="sky-form">
+						<h4>优惠</h4>
+							<div class="row1 row2 scroll-pane">
+								<div class="col col-4">
+									<label class="radio"><input type="radio" name="radio" checked=""><i></i>60 % 以上</label>
+									<label class="radio"><input type="radio" name="radio"><i></i>50 % 以上</label>
+									<label class="radio"><input type="radio" name="radio"><i></i>40 % 以上</label>
+								</div>
+								<div class="col col-4">
+									<label class="radio"><input type="radio" name="radio"><i></i>30 % 以上</label>
+									<label class="radio"><input type="radio" name="radio"><i></i>20 % 以上</label>
+									<label class="radio"><input type="radio" name="radio"><i></i>10 % 以上</label>
+								</div>
+						</div>						
+					</section>
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+		<h4 style="margin-left:20px">发表评论</h4>
+		<span style="margin-left:20px;color:red">{{info}}</span>
+		<form action="{% url 'contents' good.id %}" method="post" style="margin-left:20px">
+			{% csrf_token %}
+			<textarea class="form-control" style="width: 810px; height: 154px;" name="content" ></textarea>
+			<br>
+			<input type="submit" style="color:white;background-color:black;height:40px" value="提交评论">
+		</form>
+	</div>
+</div>
+<!--end-single-->
+{% endblock %}

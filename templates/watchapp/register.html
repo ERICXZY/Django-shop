@@ -1,0 +1,42 @@
+{% extends "watchapp/base2.html" %}
+
+<!-- 不同之处 -->
+{% block diff %}
+<!--register-starts-->
+<div class="register">
+	<div class="container">
+		<div class="register-top heading">
+			<h2>注册账户</h2>
+		</div>
+		<p style="color:red;font-size:20px">{{info}}</p>
+		<form action="{% url 'doregister' %}" method="post">
+			{% csrf_token %}
+			<div class="register-main">
+				<div class="col-md-6 account-left">
+					<input placeholder="账号" type="text" tabindex="1" required name="username">
+					<input placeholder="姓名" type="text" tabindex="2" required name="name">
+					<input placeholder="邮箱地址" type="text" tabindex="3" required name="email">
+					<input placeholder="移动电话" type="text" tabindex="3" required name="phone">
+					<ul>
+						<li><label class="radio left"><input type="radio" name="sex" checked="" value="1"><i></i>男性</label></li>
+						<li><label class="radio"><input type="radio" name="sex" value="0"><i></i>女士</label></li>
+						<div class="clearfix"></div>
+					</ul>
+				</div>
+				<div class="col-md-6 account-left">
+					<input placeholder="邮编" type="text" tabindex="4" required name="code">
+					<input placeholder="住址" type="text" tabindex="4" required name="address">
+					<input placeholder="密码" type="password" tabindex="4" required name="password">
+					<input placeholder="输入确认密码" type="password" tabindex="4" required name="password2">
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="address submit">
+                <input type="submit" value="提交">
+			</div>
+		</form>
+		
+	</div>
+</div>
+<!--register-end-->
+{% endblock %}

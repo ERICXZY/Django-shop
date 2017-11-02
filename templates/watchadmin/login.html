@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html lang="en" class="ie6 ielt7 ielt8 ielt9"><![endif]--><!--[if IE 7 ]><html lang="en" class="ie7 ielt8 ielt9"><![endif]--><!--[if IE 8 ]><html lang="en" class="ie8 ielt9"><![endif]--><!--[if IE 9 ]><html lang="en" class="ie9"> <![endif]--><!--[if (gt IE 9)|!(IE)]><!--> 
+<html lang="en"><!--<![endif]--> 
+	<head>
+		<meta charset="utf-8">
+		<title>管理员登陆</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="/static/watchadmin/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/static/watchadmin/css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link href="/static/watchadmin/css/site.css" rel="stylesheet">
+		<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	</head>
+	<body>
+		<div id="login-page" class="container">
+			<h2>淘小宝商店管理员登陆</h2>
+			<form id="login-form" class="well" action="{% url 'doadmin_login' %}" method="post">
+				{% csrf_token %}
+				<span>账号：</span><input type="text" class="span2" placeholder="账号" name="username"/><br />
+				<span>密码：</span><input type="password" class="span2" placeholder="密码" name="password"/><br />
+				<label class="checkbox"> <input type="checkbox" /> 记住 </label>
+				<input type="submit" class="btn btn-primary" value="提交">
+				<input type="reset" class="btn" value="重置">
+			</form>	
+			<p style="color:red">{{info}}</p>
+		</div>
+
+		<script src="/static/watchadmin/js/jquery.min.js"></script>
+		<script src="/static/watchadmin/js/bootstrap.min.js"></script>
+		<script src="/static/watchadmin/js/site.js"></script>
+	</body>
+</html>

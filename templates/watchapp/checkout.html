@@ -1,0 +1,68 @@
+{% extends "watchapp/base2.html" %}
+
+<!-- 不同之处 -->
+{% block diff %}
+<!--start-ckeckout-->
+<div class="ckeckout">
+	<div class="container">
+		<div class="ckeck-top heading">
+			<h2>购物车</h2>
+			<h3></h3>
+		</div>
+		<div class="ckeckout-top">
+			<div class="cart-items">
+				
+				<h4>总计：${{request.session.allprice}}</h4>
+					<script>$(document).ready(function(c) {
+						$('.close1').on('click', function(c){
+							$('.cart-header').fadeOut('slow', function(c){
+								$('.cart-header').remove();
+							});
+							});	  
+						});
+				    </script>
+				<div class="in-check" >
+					<ul class="unit">
+						<li><span>产品</span></li>
+						<li><span>产品名称</span></li>		
+						<li><span>价格</span></li>
+						<li><span>数量</span></li>
+						<div class="clearfix"> </div>
+					</ul>
+					<form action="{% url 'order' %}" method="post">
+						{% csrf_token %}
+						{% for good in request.session.checkoutlist.values %}
+						{% if good.uid == request.session.user.id %}
+						<ul class="cart-header">
+
+							<!-- 设置一个链接，点击错号时，进行删除单品操作 -->
+							<a href="{% url 'delcheckout' good.id %}"><div class="close1"></div></a>
+							<li class="ring-in">
+								<input type="checkbox" name="one" value="{{good.id}}">&nbsp;&nbsp;&nbsp;请选择
+								<a href="{% url 'single' good.id %}" ><img src="/static/goodsimg/s_{{good.picname}}" class="img-responsive" alt=""></a>
+							</li>
+							<li>
+								<span class="name">{{good.goods}}</span>
+								<p></p>
+							</li>
+							<li>
+								<span class="cost">价格：{{good.price}}</span>
+								<p>小记：{{good.totalprice}}</p>
+							</li>
+							<li>
+								<span style="margin-top:10px"><a href="{% url 'dcheckout' good.id %}" style="font-size:30px;text-decoration:none"> - </a>&nbsp;&nbsp;&nbsp;{{good.total}} &nbsp;&nbsp;&nbsp;<a href="{% url 'acheckout' good.id %}" style="font-size:20px;text-decoration:none"> + </a></span>
+								<p>最多可购买{{good.store}}个</p>
+							</li>
+							<div class="clearfix"> </div>
+						</ul>
+						{% endif %}
+						{% endfor %}
+						<input type="submit" style="color:white;background-color:black;height:30px"  value="确认提交">
+					</form>
+				</div>
+			</div>  
+	 	</div>
+	</div>
+</div>
+<!--end-ckeckout-->
+{% endblock %}

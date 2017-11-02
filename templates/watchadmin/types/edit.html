@@ -1,0 +1,40 @@
+{% extends "watchadmin/base.html" %}
+{% block title %}用户修改{% endblock %}
+{% block content %}
+<div class="span9">
+	<h3>
+		编辑用户信息
+	</h3>
+	<form id="edit-profile" class="form-horizontal" action="{% url 'admin_typesupdate' %}" method="post">
+		{% csrf_token %}
+		<fieldset>
+			<legend>个人用户</legend>
+			<div class="control-group">
+				<label class="control-label" for="input01">类别名</label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="input01" name="name" value="{{type.name}}"  />
+					<input type="hidden" class="input-xlarge" id="input01" name="sid" value="{{type.id}}"/>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="input01">类别pid</label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="input01" name="pid" disabled="true" value="{{type.pid}}"/>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="input01">path</label>
+				<div class="controls">
+					<input type="text" name="path" class="input-xlarge" id="input01" disabled="true" value="{{type.path}}"/>
+				</div>
+			</div>			
+			<div class="control-group">
+				<div class="controls">
+					<input type="submit" value="提交"/>&nbsp;&nbsp;
+					<input type="reset" value="重置"/>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</div>
+{% endblock %}

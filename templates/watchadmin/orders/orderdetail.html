@@ -1,0 +1,63 @@
+{% extends "watchadmin/base.html" %}
+{% block title %}用户浏览{% endblock %}
+{% block a8 %}class="active"{% endblock %}
+{% block content %}
+<div class="span9">
+    <h2>
+        查看订单详情
+    </h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>商品名称</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+                
+                <th>图片</th>
+            </tr>
+        </thead>
+        <tbody>
+        <div style="border:1px solid #eee;margin-bottom: 20px;padding-left: 10px;">
+            <p style="border-bottom: 1px dashed #eee;height: 40px;line-height: 40px;">订单号:{{ order.id }}</p>
+            <p style="border-bottom: 1px dashed #eee;height: 40px;line-height: 40px;">下单用户:{{ order.username }}</p>
+            <p style="border-bottom: 1px dashed #eee;height: 40px;line-height: 40px;">收货人:{{ order.linkman }}</p>
+            <p style="border-bottom: 1px dashed #eee;height: 40px;line-height: 40px;">收货地址:{{ order.address }}</p>
+            <p style="border-bottom: 1px dashed #eee;height: 40px;line-height: 40px;">邮编:{{ order.code }}</p>
+            <p style="border-bottom: 1px dashed #eee;height: 40px;line-height: 40px;">收货人电话:{{ order.phone }}</p>
+            <p style="border-bottom: 1px dashed #eee;height: 40px;line-height: 40px;">下单时间:{{ order.addtime }}</p>
+            <p style="border-bottom: 1px dashed #eee;height: 40px;line-height: 40px;">总金额:{{ order.total }}</p>
+            <p style="border-bottom: 1px dashed #eee;height: 40px;line-height: 40px;">
+                订单状态:
+                {% if order.state == 0 %}
+                    新订单
+                {% elif order.state == 1 %}
+                    已发货
+                {% elif order.state == 2 %}
+                    已收货
+                {% elif order.state == 3 %}
+                    无效订单
+                {% endif %}
+            </p>
+            {% if order.state == 0  %}
+            <a class="btn btn-default" href="{% url 'admin_send' order.id %}">发货</a>
+            {% endif %}
+            {% if order.state == 2 or order.state == 3 or order.state == 0 %}
+            <a class="btn btn-danger" href="{% url 'admin_cancel' order.id %}">取消订单</a>
+            {% endif %}
+        </div>
+            {% for detail in details %}
+                <tr>
+                    <td>{{ detail.name }}</td>
+                    <td>{{ detail.price }}</td>
+                    <td>{{ detail.num }}</td>
+                    <td>{{ detail.totalprice }}</td>
+                    <td><img src="/static/goodsimg/s_{{ detail.picname }}" width="60" /></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</div>
+
+{% endblock %}

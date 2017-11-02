@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% load static from staticfiles %}
+<title>{% block title %}{% endblock %}</title>
+<link href="/static/watchapp/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<!--jQuery(necessary for Bootstrap's JavaScript plugins)-->
+<script src="/static/watchapp/js/jquery-1.11.0.min.js"></script>
+<!--Custom-Theme-files-->
+<!--theme-style-->
+<link href="/static/watchapp/css/style.css" rel="stylesheet" type="text/css" media="all" />	
+<!--//theme-style-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Luxury Watches Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--start-menu-->
+<script src="/static/watchapp/js/simpleCart.min.js"> </script>
+<link href="/static/watchapp/css/memenu.css" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="/static/watchapp/js/memenu.js"></script>
+<script>$(document).ready(function(){$(".memenu").memenu();});</script>	
+<!--dropdown-->
+<script src="/static/watchapp/js/jquery.easydropdown.js"></script>			
+</head>
+
+<body>
+	<!--top-header-->
+	<div class="top-header">
+		<div class="container">
+			<div class="top-header-main">
+				<div class="col-md-6 top-header-left">
+					<div class="drop">
+						<div class="box">
+							<select tabindex="4" class="dropdown drop">
+								<option value="" class="label">人民币 :</option>
+								<option value="1">人民币</option>
+								<option value="2">美元</option>
+							</select>
+						</div>
+						<div class="box1">
+							<select tabindex="4" class="dropdown">
+								<option value="" class="label">中文简体 :</option>
+								<option value="1">中文简体</option>
+								<option value="2">中文繁体</option>
+								<option value="3">英文</option>
+							</select>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="col-md-6 top-header-left">
+					<div class="cart box_1">
+						<a href="{% url 'checkout' %}">
+							<div class="total">
+								<span>{{request.session.allnum}}</span><br>
+							</div>
+							<img src="/static/watchapp/images/cart-1.png" alt="" />
+						</a>
+						<p><a href="{% url 'clearcheckout' %}" class="simpleCart_empty">清空购物车</a></p>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<!--top-header-->
+
+
+	<!--start-logo-->
+	<div class="logo">
+		<a href="index.html"><h1>淘小宝</h1></a>
+	</div>
+	<!--end-logo-->
+	
+	<!--bottom-header-->
+	<div class="header-bottom">
+		<div class="container">
+			<div class="header">
+				<div class="col-md-9 header-left">
+				<div class="top-nav">
+					<ul class="memenu skyblue"><li class="active"><a href="{% url 'index' %}">首页</a></li>
+						<li class="grid"><a href="{% url 'products' '' %}">全部商品</a>
+							<div class="mepanel">
+								<div class="row">
+									<!-- 在全部商品处循环到二级列表 -->
+									{% for type1 in list1 %}
+										
+									<div class="col1 me-one">
+										<h4>{{type1.name}}</h4>
+										<ul>
+
+											{% for type2 in list2 %}
+												{% if type2.pid == type1.id %}
+													<li><a href="{% url 'products' '' type2.id %}">{{type2.name}}</a></li>
+												{% endif %}
+											{% endfor %}
+
+										</ul>
+									</div>
+
+									{% endfor %}
+
+									<div class="col1 me-one">
+										<h4>官方链接</h4>
+										<ul>
+											<li><a href="products.html">天梭</a></li>
+											<li><a href="products.html">卡西尼</a></li>
+											<li><a href="products.html">宾格</a></li>
+											<li><a href="products.html">飞亚达</a></li>
+										</ul>		
+									</div>
+								</div>
+							</div>
+						</li>
+
+						<!-- 在全部商品处循环到三级列表 -->
+						{% for type1 in list1 %}
+						<li class="grid"><a href="{% url 'products' '' type1.id%}">{{type1.name}}</a>
+							<div class="mepanel">
+								<div class="row">
+									{% for type2 in list2 %}
+										{% if type2.pid == type1.id %}
+										<div class="col1 me-one">
+											<h4>{{type2.name}}</h4>
+											<ul>
+												{% for type3 in list3 %}
+													{% if type3.pid == type2.id %}
+
+												<li><a href="{% url 'products' '' type3.id %}">{{type3.name}}</a></li>
+											
+													{% endif %}
+												{% endfor %}
+											</ul>
+										</div>
+										{% endif %}
+									{% endfor %}
+
+								</div>
+							</div>
+						</li>
+						{% endfor %}
+
+						<li class="grid"><a href="{% url 'typo' %}">博客</a>
+						</li>
+						<li class="grid"><a href="{% url 'contact' %}">联系我们</a>
+						</li>
+					</ul>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="col-md-3 header-right"> 
+				<div class="search-bar">
+					<input type="text" value="搜索" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+					<input type="submit" value="">
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<!--bottom-header-->
+
+	<!-- 不同之处 -->
+	{% block diff %}
+	{% endblock %}
+
+
+	<!--information-starts-->
+	<div class="information">
+		<div class="container">
+			<div class="infor-top">
+				<div class="col-md-3 infor-left">
+					<h3>关于我们</h3>
+					<ul>
+						<li><a href="#"><span class="fb"></span><h6>脸谱</h6></a></li>
+						<li><a href="#"><span class="twit"></span><h6>推特</h6></a></li>
+						<li><a href="#"><span class="google"></span><h6>谷歌</h6></a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 infor-left">
+					<h3>信息</h3>
+					<ul>
+						<li><a href="#"><p>腾讯新闻</p></a></li>
+						<li><a href="#"><p>新浪新闻</p></a></li>
+						<li><a href="#"><p>搜狐新闻</p></a></li>
+						<li><a href="#">我们的新闻<p></p></a></li>
+						<li><a href="#"><p>特色新闻</p></a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 infor-left">
+					<h3>我的账户</h3>
+					<ul>
+						<li><a href="{% url 'account' %}"><p>账户登录</p></a></li>
+						<li><a href="{% url 'register' %}"><p>注册</p></a></li>
+						<li><a href="{% url 'member' %}"><p>个人中心</p></a></li>
+						<li><a href="{% url 'orderlist' %}"><p>订单</p></a></li>
+						<li><a href="{% url 'checkout' %}"><p>购物车</p></a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 infor-left">
+					<h3>网站信息</h3>
+					<h5>公司名称：淘小宝</h5>
+					<h5>联系电话：+18434393642</h5>	
+					<h5>联系邮箱：1092286105@qq.com</h5>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<!--information-end-->
+	<!--footer-starts-->
+	<div class="footer">
+		<div class="container">
+			<div class="footer-top">
+				<div class="col-md-6 footer-left">
+					<form>
+						<input type="text" value="发送邮件" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter Your Email';}">
+						<input type="submit" value="订阅我们">
+					</form>
+				</div>
+				<div class="col-md-6 footer-right">					
+					<p>Copy &copy; 2016.信管141班有限公司.<a target="_blank" href="http://www.sxyunji.com"></a>信管141班有限公司</p>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<!--footer-end-->
+</body>

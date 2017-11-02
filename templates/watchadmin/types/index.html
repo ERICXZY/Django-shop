@@ -1,0 +1,67 @@
+{% extends "watchadmin/base.html" %}
+{% block title %}用户浏览{% endblock %}
+{% block a4 %}class="active"{% endblock %}
+{% block content %}
+<div class="span9">
+	<h2>
+		所有商品类别
+	</h2>
+	<span>{{info}}</span>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>
+					id号
+				</th>
+				<th>
+					商品类别名称
+				</th>
+				<th>
+					商品pid
+				</th>
+				<th>
+					path
+				</th>
+				<th>
+					操作
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for type in p %}
+			<tr>
+				<td>
+					{{type.id}}
+				</td>
+				<td>
+					{{type.pname}}
+				</td>
+				<td>
+					{{type.pid}}
+				</td>
+				<td>
+					{{type.path}}
+				</td>
+				
+				<td>
+					<a href="{% url 'admin_typesadd' type.id %}" class="view-link">添加子类</a> |
+					<a href="{% url 'admin_typesedit' type.id %}" class="view-link">编辑</a> |
+					<a href="{% url 'admin_typesdel' type.id %}" class="view-link">删除</a>
+				</td>
+			</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+	<!-- 显示页码 -->
+	<div class="pagination">
+		<ul>
+			{% for n in lip %}
+			<li>
+			<a href="{% url 'ptindex' n %}">{{n}}</a>
+			</li>
+			{% endfor %}
+		</ul>	
+	</div>			
+</div>
+{% endblock %}
